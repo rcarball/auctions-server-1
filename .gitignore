@@ -1,0 +1,9 @@
+# Eclipse configuration
+.classpath
+.project
+.settings/
+
+# Compiled class files
+bin/
+build/
+/.DS_Store
