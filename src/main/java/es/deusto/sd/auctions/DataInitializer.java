@@ -58,7 +58,15 @@ public class DataInitializer {
 
 			// Initialize auctions end date
 			Calendar calendar = Calendar.getInstance();
-			calendar.set(2024, Calendar.DECEMBER, 31);
+			
+			// Set calendar to December 31, current year
+			calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+			calendar.set(Calendar.DAY_OF_MONTH, 31);
+			calendar.set(Calendar.HOUR_OF_DAY, 23);
+			calendar.set(Calendar.MINUTE, 59);
+			calendar.set(Calendar.SECOND, 59);
+			calendar.set(Calendar.MILLISECOND, 999);
+			
 			Date auctionEndDate = calendar.getTime();
 			
 			// Articles of Electronics category
