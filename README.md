@@ -2,13 +2,11 @@
 
 # 🏗️ Auctions Server - Version 1
 
-## 📘 Description
+## 📘 Description (English)
 
-This repository contains the first version of the **Auctions Server**, part of the *Auctions Service* case study inspired by a simplified version of eBay. It provides the foundational structure of the server, implementing core backend functionality for managing auctions, bids, users, and categories.
+This repository contains the first version of the **Auctions Server**, part of the *Auctions Service* case study inspired by a simplified version of eBay. It provides the foundational backend for managing **auctions, bids, users, and categories** and exposes a **REST API** built with **Spring Boot**.
 
-The server follows a **client-server architecture** based on **Spring Boot**, exposing a **REST API** for the client-side application.  
-Version 1 introduces essential design patterns, including:
-
+Version 1 demonstrates core design patterns:
 - 🧩 **Façade**
 - ⚙️ **Application Service (AppService)**
 - 📦 **Data Transfer Object (DTO)**
@@ -17,7 +15,7 @@ Version 1 introduces essential design patterns, including:
 ### 🌐 REST API Endpoints
 
 | Method | Endpoint | Description |
-|:--------|:-------------------------------|:----------------------------------------------|
+|:------:|:-------------------------------|:----------------------------------------------|
 | **POST** | `/auth/login` | Log in to the system |
 | **POST** | `/auth/logout` | Log out from the system |
 | **GET**  | `/auctions/categories` | Retrieve all available categories |
@@ -25,18 +23,16 @@ Version 1 introduces essential design patterns, including:
 | **GET**  | `/auctions/articles/{articleId}/details` | Retrieve detailed information of an article |
 | **POST** | `/auctions/articles/{articleId}/bid` | Place a bid on an article (requires login) |
 
-💡 Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)  
-📄 OpenAPI Docs: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+📄 OpenAPI: `http://localhost:8080/v3/api-docs`  
+💡 Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 
 ---
 
 ## 📘 Descripción
 
-Este repositorio contiene la primera versión del **Servidor de Subastas**, parte del caso práctico *Auctions Service*, inspirado en una versión simplificada de eBay. Proporciona la estructura base del servidor e implementa la funcionalidad esencial del backend para la gestión de subastas, pujas, usuarios y categorías.
+Este repositorio contiene la primera versión del **Servidor de Subastas**, parte del caso práctico *Auctions Service*. Proporciona el backend base para **subastas, pujas, usuarios y categorías**, exponiendo una **API REST** con **Spring Boot**.
 
-El servidor utiliza una **arquitectura cliente-servidor** con **Spring Boot**, ofreciendo una **API REST** para la comunicación con el cliente.  
-La versión 1 implementa los patrones de diseño:
-
+Patrones de diseño:
 - 🧩 **Façade**
 - ⚙️ **Application Service (AppService)**
 - 📦 **Data Transfer Object (DTO)**
@@ -45,16 +41,30 @@ La versión 1 implementa los patrones de diseño:
 ### 🌐 Endpoints del API REST
 
 | Método | Endpoint | Descripción |
-|:--------|:-------------------------------|:----------------------------------------------|
+|:------:|:-------------------------------|:----------------------------------------------|
 | **POST** | `/auth/login` | Iniciar sesión |
 | **POST** | `/auth/logout` | Cerrar sesión |
 | **GET**  | `/auctions/categories` | Consultar todas las categorías |
 | **GET**  | `/auctions/categories/{categoryName}/articles` | Obtener artículos por categoría |
-| **GET**  | `/auctions/articles/{articleId}/details` | Consultar los detalles de un artículo |
+| **GET**  | `/auctions/articles/{articleId}/details` | Ver detalles de un artículo |
 | **POST** | `/auctions/articles/{articleId}/bid` | Realizar una puja (requiere login) |
 
-💡 Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)  
-📄 OpenAPI Docs: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+📄 OpenAPI: `http://localhost:8080/v3/api-docs`  
+💡 Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+
+---
+
+## ⚙️ Tech Stack & Build
+
+### 🔧 Java & Build
+- ☕ **Java**: 21  
+- 🧱 **Build**: Gradle  
+- 🔌 **Plugins**:
+  - `org.springframework.boot` **3.5.7**
+  - `io.spring.dependency-management` **1.1.6**
+### 📦 Dependencies
+- `org.springframework.boot:spring-boot-starter-web`
+- `org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13`
 
 ---
 
