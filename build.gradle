@@ -23,4 +23,7 @@ dependencies {
 
 	// SpringDoc OpenAPI UI Dependency this is needed to use Swagger annotations
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
+
+	// Apache Commons Codec for SHA-1 password hashing (version managed by Spring Boot)
+    implementation 'commons-codec:commons-codec'
 }

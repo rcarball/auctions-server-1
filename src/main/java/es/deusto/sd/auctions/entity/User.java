@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class User {
 
 	private String nickname;
@@ -22,14 +24,17 @@ public class User {
 	
 	// Constructor with parameters
 	public User(String nickname, String email, String password) {
-		this.nickname = nickname;		
+		this.nickname = nickname;
 		this.email = email;
-		this.password = password;
+		// Passwords are never stored in plain text: they are hashed with SHA-1
+		// before being kept in memory (see the "Login" scenario in the case study).
+		this.password = DigestUtils.sha1Hex(password);
 	}
-	
-	// Check if a password is correct
+
+	// Check if a password is correct by comparing the SHA-1 hash of the provided
+	// password against the stored hash (the plain-text password is never kept).
 	public boolean checkPassword(String password) {
-        return this.password.equals(password);
+        return this.password.equals(DigestUtils.sha1Hex(password));
 	}
 
 	//  Getters and setters
@@ -41,12 +46,11 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getPassword() {
-		return password;
-	}
+	// Note: there is no getPassword() on purpose. As an additional security measure
+	// the stored password (a SHA-1 hash) is never exposed outside the class.
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = DigestUtils.sha1Hex(password);
 	}
 
 	public String getEmail() {
