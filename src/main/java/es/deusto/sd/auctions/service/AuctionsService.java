@@ -5,9 +5,9 @@
  */
 package es.deusto.sd.auctions.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
@@ -19,9 +19,11 @@ import es.deusto.sd.auctions.entity.User;
 @Service
 public class AuctionsService {
 
-	// Simulating category and article repositories
-	private static Map<String, Category> categoryRepository = new HashMap<>();
-	private static Map<Long, Article> articleRepository = new HashMap<>();
+	// Simulating category and article repositories.
+	// ConcurrentHashMap is used because the repositories are shared across the
+	// threads that Spring uses to serve concurrent HTTP requests.
+	private final Map<String, Category> categoryRepository = new ConcurrentHashMap<>();
+	private final Map<Long, Article> articleRepository = new ConcurrentHashMap<>();
 
 	// Get all categories
 	public List<Category> getCategories() {
@@ -53,13 +55,30 @@ public class AuctionsService {
 			throw new RuntimeException("Article not found");
 		}
 
-		if (amount <= article.getCurrentPrice()) {
-			throw new RuntimeException("Bid amount must be greater than the current price");
+		// A bid can only be placed while the auction is still open. Once the end date
+		// has passed, the article is no longer up for auction (its winner is fixed).
+		if (article.getAuctionEnd() != null && System.currentTimeMillis() > article.getAuctionEnd().getTime()) {
+			throw new RuntimeException("Auction has ended");
 		}
-		
-		// Create a new bid and associate it with the article
-		Bid bid = new Bid(System.currentTimeMillis(), amount, article, user);
-		article.getBids().add(bid);
+
+		// The "check current price" and "register the bid" steps must be atomic:
+		// otherwise two concurrent bids could both pass the check and be accepted,
+		// leaving the auction in an inconsistent state (lost update). We synchronize
+		// on the article so that only one bid per article is processed at a time.
+		synchronized (article) {
+			if (amount <= article.getCurrentPrice()) {
+				throw new RuntimeException("Bid amount must be greater than the current price");
+			}
+
+			// Create a new bid and associate it with both the article and the bidder,
+			// keeping both sides of the domain associations consistent.
+			Bid bid = new Bid(System.currentTimeMillis(), amount, article, user);
+			article.getBids().add(bid);
+
+			synchronized (user) {
+				user.getBids().add(bid);
+			}
+		}
 	}
 	
 	// Method to add a new category

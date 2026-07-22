@@ -20,15 +20,13 @@ public class CurrencyService {
 	}
 	
     public Optional<Float> getExchangeRate(String currency) {
-    	Optional<Float> exchangeRate = ExchangeRate.valueOf(currency) != null ? Optional.of(ExchangeRate.valueOf(currency).rate) : Optional.empty();
-
+    	// ExchangeRate.valueOf throws IllegalArgumentException if the currency is not
+    	// a valid enum constant (and NullPointerException if it is null). We catch both
+    	// here so that an unsupported currency results in an empty Optional, which the
+    	// controllers translate into a 400 Bad Request.
     	try {
-			if (exchangeRate.isPresent()) {
-				return exchangeRate;
-			} else {
-				return Optional.of(ExchangeRate.valueOf(currency).rate);
-			}
-    	} catch(Exception ex) {
+    		return Optional.of(ExchangeRate.valueOf(currency).rate);
+    	} catch (IllegalArgumentException | NullPointerException ex) {
     		return Optional.empty();
     	}
     }

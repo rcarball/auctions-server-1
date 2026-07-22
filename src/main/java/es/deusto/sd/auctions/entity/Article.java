@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Article {
 	private long id;
 	private String title;
-	private float initialPrice;
+	private double initialPrice;
 	private Date auctionEnd;
 	private Category category;
 	private User owner;
@@ -24,19 +24,28 @@ public class Article {
 	}
 
 	// Constructor with parameters
-	public Article(long id, String title, float initialPrice, 
+	public Article(long id, String title, double initialPrice,
 			       Date auctionEnd, Category category, User owner) {
 		this.id = id;
 		this.title = title;
 		this.initialPrice = initialPrice;
 		this.auctionEnd = auctionEnd;
 		this.category = category;
-		this.category.getArticles().add(this);
 		this.owner = owner;
+
+		// Maintain both sides of the associations described in the domain model:
+		//  - a category knows its articles
+		//  - a user knows the articles they have put up for auction
+		if (this.category != null) {
+			this.category.getArticles().add(this);
+		}
+		if (this.owner != null) {
+			this.owner.getArticles().add(this);
+		}
 	}
 
 	// Get the current price of the article
-	public float getCurrentPrice() {
+	public double getCurrentPrice() {
 		if (bids.isEmpty()) {
 			return initialPrice;
 		}
@@ -58,7 +67,7 @@ public class Article {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
