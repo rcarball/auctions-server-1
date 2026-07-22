@@ -101,12 +101,12 @@ public class AuctionsController {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 
-			Optional<Float> exchangeRate = currencyService.getExchangeRate(currentCurrency);
-			
+			Optional<Double> exchangeRate = currencyService.getExchangeRate(currentCurrency);
+
 			if (!exchangeRate.isPresent()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-			
+
 			List<ArticleDTO> dtos = new ArrayList<>();
 			articles.forEach(article -> dtos.add(articleToDTO(article, exchangeRate.get(), currentCurrency)));
 			
@@ -144,8 +144,8 @@ public class AuctionsController {
 		try {
 			Article article = auctionsService.getArticleById(id);			
 			
-			if (article != null) {				
-				Optional<Float> exchangeRate = currencyService.getExchangeRate(currentCurrency);
+			if (article != null) {
+				Optional<Double> exchangeRate = currencyService.getExchangeRate(currentCurrency);
 				
 				if (!exchangeRate.isPresent()) {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -181,7 +181,7 @@ public class AuctionsController {
 			@Parameter(name = "articleId", description = "ID of the article to bid on", required = true, example = "1")		
 			@PathVariable("articleId") long id,
 			@Parameter(name = "amount", description = "Bid amount", required = true, example = "1001")
-    		@RequestParam("amount") float price,
+    		@RequestParam("amount") double price,
     		@Parameter(name = "currency", description = "Currency", required = true, example = "EUR")
 			@RequestParam("currency") String currentCurrency,
 			@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Authorization token in plain text", required = true)
@@ -193,12 +193,12 @@ public class AuctionsController {
 	    		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	    	}
 	    	
-			Optional<Float> exchangeRate = currencyService.getExchangeRate(currentCurrency);
-			
+			Optional<Double> exchangeRate = currencyService.getExchangeRate(currentCurrency);
+
 			if (!exchangeRate.isPresent()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-	    	
+
 			// Amounts are stored in EUR, so convert the incoming bid (expressed in the
 			// requested currency) back to EUR by dividing by the exchange rate.
 			// For EUR the rate is 1, so this is a no-op.
@@ -231,7 +231,7 @@ public class AuctionsController {
 	}
 	
 	// Converts an Article to an ArticleDTO
-	private ArticleDTO articleToDTO(Article article, float exchangeRate, String currency) {
+	private ArticleDTO articleToDTO(Article article, double exchangeRate, String currency) {
 		return new ArticleDTO(article.getId(), 
 				              article.getTitle(), 
 				              article.getInitialPrice() * exchangeRate,

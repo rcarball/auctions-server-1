@@ -47,7 +47,7 @@ public class AuctionsService {
 	}
 
 	// Make a bid on an article
-	public void makeBid(User user, long articleId, float amount) {
+	public void makeBid(User user, long articleId, double amount) {
 		// Retrieve the article by ID
 		Article article = articleRepository.get(articleId);
 

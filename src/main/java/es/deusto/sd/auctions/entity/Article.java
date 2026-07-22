@@ -79,11 +79,11 @@ public class Article {
 		this.title = title;
 	}
 
-	public float getInitialPrice() {
+	public double getInitialPrice() {
 		return initialPrice;
 	}
 
-	public void setInitialPrice(float initialPrice) {
+	public void setInitialPrice(double initialPrice) {
 		this.initialPrice = initialPrice;
 	}
 

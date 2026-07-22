@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Bid {
 	private long date;
-	private float amount;
+	private double amount;
 	private Article article;
 	private User user;
 
@@ -17,7 +17,7 @@ public class Bid {
 	public Bid() { }
 	
 	// Constructor with parameters
-	public Bid(long date, float amount, Article article, User user) {
+	public Bid(long date, double amount, Article article, User user) {
 		this.date = date;
 		this.amount = amount;
 		this.article = article;
@@ -33,11 +33,11 @@ public class Bid {
 		this.date = date;
 	}
 
-	public float getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

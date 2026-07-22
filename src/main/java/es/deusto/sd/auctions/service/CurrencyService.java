@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 public class CurrencyService {
 
 	public enum ExchangeRate {
-		EUR(1f),
-		USD(1.104f),
-		GBP(0.840f);
-			
-		private float rate;
+		EUR(1.0),
+		USD(1.104),
+		GBP(0.840);
 
-		ExchangeRate(float rate) {
+		private double rate;
+
+		ExchangeRate(double rate) {
 			this.rate = rate;
 		}
 	}
-	
-    public Optional<Float> getExchangeRate(String currency) {
+
+    public Optional<Double> getExchangeRate(String currency) {
     	// ExchangeRate.valueOf throws IllegalArgumentException if the currency is not
     	// a valid enum constant (and NullPointerException if it is null). We catch both
     	// here so that an unsupported currency results in an empty Optional, which the
