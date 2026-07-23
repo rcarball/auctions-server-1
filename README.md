@@ -23,8 +23,8 @@ Version 1 demonstrates core design patterns:
 | **GET**  | `/auctions/articles/{articleId}/details` | Retrieve detailed information of an article |
 | **POST** | `/auctions/articles/{articleId}/bid` | Place a bid on an article (requires login) |
 
-📄 OpenAPI: `http://localhost:8080/v3/api-docs`  
-💡 Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+📄 OpenAPI: `http://localhost:8081/v3/api-docs`  
+💡 Swagger UI: `http://localhost:8081/swagger-ui/index.html`
 
 ---
 
@@ -49,8 +49,8 @@ Patrones de diseño:
 | **GET**  | `/auctions/articles/{articleId}/details` | Ver detalles de un artículo |
 | **POST** | `/auctions/articles/{articleId}/bid` | Realizar una puja (requiere login) |
 
-📄 OpenAPI: `http://localhost:8080/v3/api-docs`  
-💡 Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+📄 OpenAPI: `http://localhost:8081/v3/api-docs`  
+💡 Swagger UI: `http://localhost:8081/swagger-ui/index.html`
 
 ---
 
@@ -77,7 +77,7 @@ Requires **JDK 21**. From the project root:
 ./gradlew bootRun
 ```
 
-The server starts on **http://localhost:8080**. Explore the REST API with Swagger UI at http://localhost:8080/swagger-ui/index.html.
+The server starts on **http://localhost:8081**. Explore the REST API with Swagger UI at http://localhost:8081/swagger-ui/index.html.
 
 > ℹ️ The Gradle **wrapper is included**, so no local Gradle installation is required (on Windows use `gradlew.bat bootRun`). The first run downloads the pinned Gradle version. To use it in **Eclipse / Spring Tool Suite**: *File → Import… → Gradle → Existing Gradle Project*, select the project folder, and then run the `AuctionsApplication` class (or `./gradlew bootRun`).
 
