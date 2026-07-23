@@ -65,6 +65,21 @@ Patrones de diseño:
 ### 📦 Dependencies
 - `org.springframework.boot:spring-boot-starter-web`
 - `org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13`
+- `commons-codec:commons-codec` (SHA-1 password hashing)
+
+---
+
+## ▶️ How to run
+
+Requires **JDK 21**. From the project root:
+
+```bash
+gradle bootRun
+```
+
+The server starts on **http://localhost:8080**. Explore the REST API with Swagger UI at http://localhost:8080/swagger-ui/index.html.
+
+> ℹ️ No Gradle wrapper is included. Use a local Gradle installation, or generate the wrapper once with `gradle wrapper` and then use `./gradlew bootRun`. Alternatively, import the project into an IDE (Eclipse/STS/IntelliJ) and run the `AuctionsApplication` class.
 
 ---
 
