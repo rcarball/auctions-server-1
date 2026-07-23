@@ -60,7 +60,7 @@ Patrones de diseño:
 - ☕ **Java**: 21  
 - 🧱 **Build**: Gradle  
 - 🔌 **Plugins**:
-  - `org.springframework.boot` **3.5.7**
+  - `org.springframework.boot` **4.1.0**
   - `io.spring.dependency-management` **1.1.6**
 ### 📦 Dependencies
 - `org.springframework.boot:spring-boot-starter-web`
@@ -74,12 +74,12 @@ Patrones de diseño:
 Requires **JDK 21**. From the project root:
 
 ```bash
-gradle bootRun
+./gradlew bootRun
 ```
 
 The server starts on **http://localhost:8080**. Explore the REST API with Swagger UI at http://localhost:8080/swagger-ui/index.html.
 
-> ℹ️ No Gradle wrapper is included. Use a local Gradle installation, or generate the wrapper once with `gradle wrapper` and then use `./gradlew bootRun`. Alternatively, import the project into an IDE (Eclipse/STS/IntelliJ) and run the `AuctionsApplication` class.
+> ℹ️ The Gradle **wrapper is included**, so no local Gradle installation is required (on Windows use `gradlew.bat bootRun`). The first run downloads the pinned Gradle version. To use it in **Eclipse / Spring Tool Suite**: *File → Import… → Gradle → Existing Gradle Project*, select the project folder, and then run the `AuctionsApplication` class (or `./gradlew bootRun`).
 
 ---
 
