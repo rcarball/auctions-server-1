@@ -33,12 +33,10 @@ public class Article {
 		this.category = category;
 		this.owner = owner;
 
-		// Maintain both sides of the associations described in the domain model:
-		//  - a category knows its articles
-		//  - a user knows the articles they have put up for auction
 		if (this.category != null) {
 			this.category.getArticles().add(this);
 		}
+
 		if (this.owner != null) {
 			this.owner.getArticles().add(this);
 		}
