@@ -71,7 +71,7 @@ Patrones de diseño:
 
 ## ▶️ How to run
 
-Requires **JDK 21**. From the project root:
+Requires **JDK 21**.  From the project root:
 
 ```bash
 ./gradlew bootRun
