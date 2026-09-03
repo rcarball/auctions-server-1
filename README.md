@@ -24,18 +24,39 @@ The version is intentionally educational rather than production-oriented. It ill
 - Swagger UI: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 - OpenAPI document: [http://localhost:8081/v3/api-docs](http://localhost:8081/v3/api-docs)
 
-### Requirements and run on macOS and Linux
+### Requirements and run on Windows, macOS and Linux
 
-Requires JDK 21. From the repository root:
+Requires JDK 21.
+
+#### Windows
+
+From PowerShell:
+
+```powershell
+.\gradlew.bat bootRun
+```
+
+#### macOS
+
+From the repository root:
 
 ```bash
 chmod +x gradlew  # only needed if the executable bit was lost, e.g. after extracting a ZIP
 ./gradlew bootRun
 ```
 
+#### Linux
+
+Use the same commands as macOS:
+
+```bash
+chmod +x gradlew  # only if needed
+./gradlew bootRun
+```
+
 The server starts at [http://localhost:8081](http://localhost:8081). The Gradle wrapper is included, so a local Gradle installation is not required. The first run downloads its pinned Gradle version and dependencies.
 
-On Windows, use `gradlew.bat bootRun`. In Eclipse or Spring Tool Suite, import the folder as an existing Gradle project and run `AuctionsApplication`.
+In Eclipse or Spring Tool Suite on any supported operating system, import the folder as an existing Gradle project and run `AuctionsApplication`.
 
 ### Tests and continuous integration
 
@@ -83,18 +104,39 @@ La versión tiene una finalidad deliberadamente educativa, no productiva. Ilustr
 - Swagger UI: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 - Documento OpenAPI: [http://localhost:8081/v3/api-docs](http://localhost:8081/v3/api-docs)
 
-### Requisitos y ejecución en macOS y Linux
+### Requisitos y ejecución en Windows, macOS y Linux
 
-Requiere JDK 21. Desde la raíz del repositorio:
+Requiere JDK 21.
+
+#### Windows
+
+Desde PowerShell:
+
+```powershell
+.\gradlew.bat bootRun
+```
+
+#### macOS
+
+Desde la raíz del repositorio:
 
 ```bash
 chmod +x gradlew  # solo si se ha perdido el permiso, por ejemplo tras extraer un ZIP
 ./gradlew bootRun
 ```
 
+#### Linux
+
+Utiliza los mismos comandos que en macOS:
+
+```bash
+chmod +x gradlew  # solo si fuera necesario
+./gradlew bootRun
+```
+
 El servidor queda disponible en [http://localhost:8081](http://localhost:8081). Se incluye el wrapper de Gradle, por lo que no es necesario instalar Gradle localmente. La primera ejecución descarga la versión fijada de Gradle y las dependencias.
 
-En Windows, usa `gradlew.bat bootRun`. En Eclipse o Spring Tool Suite, importa la carpeta como proyecto Gradle existente y ejecuta `AuctionsApplication`.
+En Eclipse o Spring Tool Suite, en cualquiera de los sistemas operativos admitidos, importa la carpeta como proyecto Gradle existente y ejecuta `AuctionsApplication`.
 
 ### Pruebas e integración continua
 
