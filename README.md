@@ -85,6 +85,22 @@ The server starts on **http://localhost:8081**. Explore the REST API with Swagge
 
 ---
 
+## 🧪 Testing / Pruebas
+
+Run the automated test suite from the project root:
+
+```bash
+./gradlew test
+```
+
+The suite includes unit tests for auctions, authentication and currency conversion, plus `MockMvc` tests for the REST controllers. The controller tests exercise the HTTP contract used in Swagger UI or Postman — routes, request parameters, JSON credentials and response codes — without starting a network server.
+
+La batería incluye pruebas unitarias de subastas, autenticación y conversión de moneda, además de pruebas `MockMvc` de los controladores REST. Estas últimas verifican automáticamente el mismo contrato HTTP que se explora con Swagger UI o Postman —rutas, parámetros, credenciales JSON y códigos de respuesta— sin iniciar un servidor de red.
+
+The [CI workflow](.github/workflows/ci.yml) runs this command for changes to `master` and for pull requests.
+
+---
+
 ## ✒️ Authors / Autoría
 
 **Carballedo, R. & Cortázar, R.**  
