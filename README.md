@@ -2,6 +2,8 @@
 
 # 🏗️ Auctions Server - Version 1
 
+[![CI](https://github.com/rcarball/auctions-server-1/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/rcarball/auctions-server-1/actions/workflows/ci.yml)
+
 ## 📘 Description (English)
 
 This repository contains the first version of the **Auctions Server**, part of the *Auctions Service* case study inspired by a simplified version of eBay. It provides the foundational backend for managing **auctions, bids, users, and categories** and exposes a **REST API** built with **Spring Boot**.
