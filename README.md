@@ -95,9 +95,9 @@ Faculty of Engineering, University of Deusto — Academic year 2026–27.
 
 ### AI assistance and review disclosure
 
-The initial version of this codebase was developed with partial assistance from ChatGPT (OpenAI) and GitHub Copilot.
+The application code was initially generated with ChatGPT 4o (OpenAI) and adapted using GitHub Copilot. The codebase and documentation were reviewed and updated with assistance from Claude Opus 4.8 (Anthropic) in July 2026 and ChatGPT-6.1 Sol (OpenAI) in October 2026.
 
-From July to September 2026, the codebase and documentation were reviewed and audited using Claude Opus (Anthropic) and Codex (OpenAI). The resulting version was tested and refined to identify and correct issues within the scope of those verification activities.
+All automated tests and the continuous integration workflow were entirely generated with ChatGPT-6.1 (OpenAI) in September and October 2026.
 
 ---
 
@@ -194,6 +194,6 @@ Facultad de Ingeniería, Universidad de Deusto — Curso académico 2026–27.
 
 ### Declaración sobre asistencia de IA y revisión
 
-La versión inicial de este código se desarrolló con asistencia parcial de ChatGPT (OpenAI) y GitHub Copilot.
+El código de la aplicación se generó inicialmente con ChatGPT 4o (OpenAI) y se adaptó utilizando GitHub Copilot. El código y la documentación se revisaron y actualizaron con asistencia de Claude Opus 4.8 (Anthropic) en julio de 2026 y de ChatGPT-6.1 Sol (OpenAI) en octubre de 2026.
 
-Entre julio y septiembre de 2026, el código y la documentación se revisaron y auditaron con Claude Opus (Anthropic) y Codex (OpenAI). La versión resultante fue probada y refinada para identificar y corregir incidencias dentro del alcance de dichas actividades de verificación.
+Todas las pruebas automáticas y el flujo de integración continua se generaron íntegramente con ChatGPT-6.1 (OpenAI) en septiembre y octubre de 2026.
