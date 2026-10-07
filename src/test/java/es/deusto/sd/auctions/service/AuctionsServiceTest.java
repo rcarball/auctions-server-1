@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,6 +68,30 @@ class AuctionsServiceTest {
                 () -> service.makeBid(bidder, article.getId(), 125.0));
 
         assertEquals("Auction has ended", exception.getMessage());
+    }
+
+    @Test
+    void rejectsABidIfTheAuctionClosesWhileWaitingForTheArticleLock() throws Exception {
+        AtomicReference<Thread> worker = new AtomicReference<>();
+        CompletableFuture<RuntimeException> result;
+        synchronized (article) {
+            result = CompletableFuture.supplyAsync(() -> {
+                worker.set(Thread.currentThread());
+                return assertThrows(RuntimeException.class,
+                        () -> service.makeBid(bidder, article.getId(), 125.0));
+            });
+            long timeout = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
+            while (worker.get() == null || worker.get().getState() != Thread.State.BLOCKED) {
+                if (System.nanoTime() > timeout) {
+                    throw new AssertionError("Bid did not reach the article lock");
+                }
+                Thread.onSpinWait();
+            }
+            article.setAuctionEnd(new Date(System.currentTimeMillis() - 1));
+        }
+        assertEquals("Auction has ended", result.get(5, TimeUnit.SECONDS).getMessage());
+        assertEquals(0, article.getBids().size());
+        assertEquals(0, bidder.getBids().size());
     }
 
     @Test

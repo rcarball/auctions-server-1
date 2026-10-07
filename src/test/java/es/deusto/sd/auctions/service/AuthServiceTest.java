@@ -40,4 +40,10 @@ class AuthServiceTest {
         assertTrue(service.login("unknown@example.com", DigestUtils.sha1Hex(PASSWORD)).isEmpty());
         assertFalse(service.logout("unknown-token").isPresent());
     }
+
+    @Test
+    void rejectsMissingEmailOrPassword() {
+        assertTrue(service.login(null, "password-hash").isEmpty());
+        assertTrue(service.login(user.getEmail(), null).isEmpty());
+    }
 }

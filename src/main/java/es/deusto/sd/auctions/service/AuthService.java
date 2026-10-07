@@ -25,6 +25,9 @@ public class AuthService {
 
     // Login method that checks if the user exists in the database and validates the password
     public Optional<String> login(String email, String password) {
+        if (email == null || password == null) {
+            return Optional.empty();
+        }
         User user = userRepository.get(email);
         
         if (user != null && user.checkPassword(password)) {

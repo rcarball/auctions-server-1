@@ -61,17 +61,15 @@ public class AuctionsService {
 			throw new RuntimeException("Article not found");
 		}
 
-		// A bid can only be placed while the auction is still open. Once the end date
-		// has passed, the article is no longer up for auction (its winner is fixed).
-		if (article.getAuctionEnd() != null && System.currentTimeMillis() > article.getAuctionEnd().getTime()) {
-			throw new RuntimeException("Auction has ended");
-		}
-
 		// The "check current price" and "register the bid" steps must be atomic:
 		// otherwise two concurrent bids could both pass the check and be accepted,
 		// leaving the auction in an inconsistent state (lost update). We synchronize
 		// on the article so that only one bid per article is processed at a time.
 		synchronized (article) {
+			// Check after acquiring the lock: the auction may have closed while waiting.
+			if (article.getAuctionEnd() != null && System.currentTimeMillis() >= article.getAuctionEnd().getTime()) {
+				throw new RuntimeException("Auction has ended");
+			}
 			if (amount <= article.getCurrentPrice()) {
 				throw new RuntimeException("Bid amount must be greater than the current price");
 			}

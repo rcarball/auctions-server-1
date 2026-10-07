@@ -234,7 +234,9 @@ public class AuctionsController {
 	
 	// Converts an Article to an ArticleDTO
 	private ArticleDTO articleToDTO(Article article, double exchangeRate, String currency) {
-		return new ArticleDTO(article.getId(), 
+		// Read the price and bid count under the same lock used to register bids.
+		synchronized (article) {
+			return new ArticleDTO(article.getId(),
 				              article.getTitle(), 
 				              article.getInitialPrice() * exchangeRate,
 				              article.getCurrentPrice() * exchangeRate,
@@ -243,5 +245,6 @@ public class AuctionsController {
 				              article.getCategory().getName(), 
 				              article.getOwner().getNickname(),
 				              currency);
+		}
 	}
 }

@@ -64,9 +64,28 @@ In Eclipse or Spring Tool Suite on any supported operating system, import the fo
 ./gradlew test
 ```
 
-The suite includes unit tests for auctions, authentication and currency conversion, plus `MockMvc` tests for REST routes, parameters, JSON credentials and response codes. It validates the HTTP contract explored manually with Swagger UI or Postman without starting a network server.
+The suite includes unit tests for auctions, authentication and currency conversion, plus `MockMvc` tests for REST routes, parameters, JSON credentials and response codes. Integration tests also start the complete application on a random local port and verify OpenAPI, Swagger UI and the login/bid/logout workflow with the initialized data. A concurrency regression test checks that bids waiting for an article lock are rejected if the auction closes.
 
 The [CI workflow](.github/workflows/ci.yml) runs the test suite for pushes to `master` and pull requests. The `master` branch requires the `test` check to pass before changes are integrated.
+
+### Classroom notes and dependency review
+
+Stable versions checked on **8 October 2026**:
+
+| Component | Version | Official reference |
+|:--|:--|:--|
+| Spring Boot | 4.1.1 | [Releases](https://github.com/spring-projects/spring-boot/releases) |
+| springdoc OpenAPI | 3.1.1 (Spring Boot 4 compatible branch) | [Documentation](https://springdoc.org/) |
+| Spring dependency management plugin | 1.1.7 | [Releases](https://github.com/spring-gradle-plugins/dependency-management-plugin/releases) |
+| Apache Commons Codec | 1.22.1 (explicit override) | [Release history](https://commons.apache.org/proper/commons-codec/changes.html) |
+| Gradle wrapper | 9.8.0 | [Releases](https://gradle.org/releases/) |
+| CI checkout / Java setup | 7.0.1 / 6.0.1 | [Checkout](https://github.com/actions/checkout/releases), [Java setup](https://github.com/actions/setup-java/releases) |
+
+Java 21 remains the classroom requirement. Spring Boot manages the remaining library versions as a compatible set; they are not individually pinned to their newest upstream release. See [Spring Boot dependency management](https://docs.spring.io/spring-boot/gradle-plugin/managing-dependencies.html).
+
+For Swagger/Postman login, `password` must contain the lowercase hexadecimal SHA-1 hash of the original password, as sent by the clients. For example, use email `batman@dc.com` and `DigestUtils.sha1Hex("Batm@n123!")`. The server hashes this value again before comparing it with the stored value. Pass the returned token as a **plain text body** when bidding or logging out. Article IDs run from **0 to 11**, and demo auctions end on 31 December of the year the server starts.
+
+V1 stores all data and sessions in memory: restarting resets them. EUR/USD/GBP rates are fixed teaching values. The SHA-1 login scheme, non-expiring sessions and `double` monetary amounts are educational simplifications, not a production authentication or monetary model. The clients default to V2 at port 8082; configure their server URL to `http://localhost:8081` when using V1.
 
 ### License and authorship
 
@@ -144,9 +163,28 @@ En Eclipse o Spring Tool Suite, en cualquiera de los sistemas operativos admitid
 ./gradlew test
 ```
 
-La batería incluye pruebas unitarias de subastas, autenticación y conversión de moneda, además de pruebas `MockMvc` de rutas REST, parámetros, credenciales JSON y códigos de respuesta. Verifica automáticamente el contrato HTTP que se explora manualmente con Swagger UI o Postman, sin iniciar un servidor de red.
+La batería incluye pruebas unitarias de subastas, autenticación y conversión de moneda, además de pruebas `MockMvc` de rutas REST, parámetros, credenciales JSON y códigos de respuesta. Las pruebas de integración arrancan también la aplicación completa en un puerto local aleatorio y verifican OpenAPI, Swagger UI y el flujo de login/puja/logout con los datos iniciales. Una prueba de regresión de concurrencia comprueba que se rechazan las pujas que esperan el bloqueo de un artículo si la subasta cierra durante la espera.
 
 El [flujo de CI](.github/workflows/ci.yml) ejecuta las pruebas en cada cambio a `master` y en cada pull request. La rama `master` requiere que la comprobación `test` sea correcta antes de integrar cambios.
+
+### Notas para clase y revisión de dependencias
+
+Versiones estables comprobadas el **8 de octubre de 2026**:
+
+| Componente | Versión | Referencia oficial |
+|:--|:--|:--|
+| Spring Boot | 4.1.1 | [Versiones](https://github.com/spring-projects/spring-boot/releases) |
+| springdoc OpenAPI | 3.1.1 (rama compatible con Spring Boot 4) | [Documentación](https://springdoc.org/) |
+| Plugin de gestión de dependencias Spring | 1.1.7 | [Versiones](https://github.com/spring-gradle-plugins/dependency-management-plugin/releases) |
+| Apache Commons Codec | 1.22.1 (versión explícita) | [Historial](https://commons.apache.org/proper/commons-codec/changes.html) |
+| Wrapper de Gradle | 9.8.0 | [Versiones](https://gradle.org/releases/) |
+| CI checkout / configuración Java | 7.0.1 / 6.0.1 | [Checkout](https://github.com/actions/checkout/releases), [Java setup](https://github.com/actions/setup-java/releases) |
+
+Se mantiene Java 21 como requisito docente. Spring Boot gestiona las versiones del resto de librerías como un conjunto compatible; no se fija individualmente cada una a su última versión publicada. Véase la [gestión de dependencias de Spring Boot](https://docs.spring.io/spring-boot/gradle-plugin/managing-dependencies.html).
+
+Para el login desde Swagger/Postman, `password` debe contener el hash SHA-1 hexadecimal en minúsculas de la contraseña original, como lo envían los clientes. Por ejemplo, utiliza el correo `batman@dc.com` y `DigestUtils.sha1Hex("Batm@n123!")`. El servidor vuelve a aplicar el hash antes de compararlo con el valor almacenado. Envía el token recibido como **cuerpo de texto plano** para pujar o cerrar sesión. Los identificadores de artículos van del **0 al 11** y las subastas de ejemplo cierran el 31 de diciembre del año de arranque.
+
+V1 conserva los datos y las sesiones en memoria: se reinician al arrancar de nuevo. Los tipos EUR/USD/GBP son valores docentes fijos. El login con SHA-1, las sesiones sin caducidad y los importes con `double` son simplificaciones educativas, no un modelo de autenticación o de dinero para producción. Los clientes apuntan por defecto a V2 en el puerto 8082; configura su URL como `http://localhost:8081` para utilizarlos con V1.
 
 ### Licencia y autoría
 
