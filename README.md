@@ -83,7 +83,7 @@ Stable versions checked on **8 October 2026**:
 
 Java 21 remains the classroom requirement. Spring Boot manages the remaining library versions as a compatible set; they are not individually pinned to their newest upstream release. See [Spring Boot dependency management](https://docs.spring.io/spring-boot/gradle-plugin/managing-dependencies.html).
 
-For Swagger/Postman login, `password` must contain the lowercase hexadecimal SHA-1 hash of the original password, as sent by the clients. For example, use email `batman@dc.com` and `DigestUtils.sha1Hex("Batm@n123!")`. The server hashes this value again before comparing it with the stored value. Pass the returned token as a **plain text body** when bidding or logging out. Article IDs run from **0 to 11**, and demo auctions end on 31 December of the year the server starts.
+Pass the returned token as a **plain text body** when bidding or logging out. Article IDs run from **0 to 11**, and demo auctions end on 31 December of the year the server starts.
 
 V1 stores all data and sessions in memory: restarting resets them. EUR/USD/GBP rates are fixed teaching values. The SHA-1 login scheme, non-expiring sessions and `double` monetary amounts are educational simplifications, not a production authentication or monetary model. The clients default to V2 at port 8082; configure their server URL to `http://localhost:8081` when using V1.
 
@@ -182,7 +182,7 @@ Versiones estables comprobadas el **8 de octubre de 2026**:
 
 Se mantiene Java 21 como requisito docente. Spring Boot gestiona las versiones del resto de librerías como un conjunto compatible; no se fija individualmente cada una a su última versión publicada. Véase la [gestión de dependencias de Spring Boot](https://docs.spring.io/spring-boot/gradle-plugin/managing-dependencies.html).
 
-Para el login desde Swagger/Postman, `password` debe contener el hash SHA-1 hexadecimal en minúsculas de la contraseña original, como lo envían los clientes. Por ejemplo, utiliza el correo `batman@dc.com` y `DigestUtils.sha1Hex("Batm@n123!")`. El servidor vuelve a aplicar el hash antes de compararlo con el valor almacenado. Envía el token recibido como **cuerpo de texto plano** para pujar o cerrar sesión. Los identificadores de artículos van del **0 al 11** y las subastas de ejemplo cierran el 31 de diciembre del año de arranque.
+Envía el token recibido como **cuerpo de texto plano** para pujar o cerrar sesión. Los identificadores de artículos van del **0 al 11** y las subastas de ejemplo cierran el 31 de diciembre del año de arranque.
 
 V1 conserva los datos y las sesiones en memoria: se reinician al arrancar de nuevo. Los tipos EUR/USD/GBP son valores docentes fijos. El login con SHA-1, las sesiones sin caducidad y los importes con `double` son simplificaciones educativas, no un modelo de autenticación o de dinero para producción. Los clientes apuntan por defecto a V2 en el puerto 8082; configura su URL como `http://localhost:8081` para utilizarlos con V1.
 
