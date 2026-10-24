@@ -28,6 +28,7 @@ public class AuthService {
         if (email == null || password == null) {
             return Optional.empty();
         }
+        
         User user = userRepository.get(email);
         
         if (user != null && user.checkPassword(password)) {

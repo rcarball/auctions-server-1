@@ -216,11 +216,11 @@ public class AuctionsController {
 		            case "Bid amount must be a finite positive number":
 		                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		            case "Article not found":
-	                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		            	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	            case "Bid amount must be greater than the current price":
-	                return new ResponseEntity<>(HttpStatus.CONFLICT);
+	                	return new ResponseEntity<>(HttpStatus.CONFLICT);
 	            case "Auction has ended":
-	                return new ResponseEntity<>(HttpStatus.GONE);
+	                	return new ResponseEntity<>(HttpStatus.GONE);
 	            default:
 	                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
