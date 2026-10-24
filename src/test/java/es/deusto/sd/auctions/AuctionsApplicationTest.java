@@ -12,7 +12,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,8 +42,7 @@ class AuctionsApplicationTest {
         assertEquals(200, get("/auctions/categories").statusCode());
         assertEquals(200, get("/auctions/categories/Sporting%20Goods/articles?currency=EUR").statusCode());
         assertEquals(200, get("/auctions/articles/1/details?currency=EUR").statusCode());
-        String credentials = "{\"email\":\"batman@dc.com\",\"password\":\""
-                + DigestUtils.sha1Hex("Batm@n123!") + "\"}";
+        String credentials = "{\"email\":\"batman@dc.com\",\"password\":\"Batm@n123!\"}";
         HttpResponse<String> login = post("/auth/login", "application/json", credentials);
         assertEquals(200, login.statusCode());
         String token = login.body();
@@ -67,8 +65,7 @@ class AuctionsApplicationTest {
     void validatesCurrencyArticleIdsAndBidAmounts() throws Exception {
         assertEquals(400, get("/auctions/articles/1/details?currency=INVALID").statusCode());
         assertEquals(404, get("/auctions/articles/999/details?currency=EUR").statusCode());
-        String credentials = "{\"email\":\"spiderman@marvel.com\",\"password\":\""
-                + DigestUtils.sha1Hex("Sp!derM4n2023") + "\"}";
+        String credentials = "{\"email\":\"batman@dc.com\",\"password\":\"Batm@n123!\"}";
         HttpResponse<String> login = post("/auth/login", "application/json", credentials);
         assertEquals(200, login.statusCode());
         String token = login.body();
