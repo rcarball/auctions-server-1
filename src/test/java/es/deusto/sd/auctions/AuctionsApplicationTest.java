@@ -46,9 +46,9 @@ class AuctionsApplicationTest {
         HttpResponse<String> login = post("/auth/login", "application/json", credentials);
         assertEquals(200, login.statusCode());
         String token = login.body();
-        assertEquals(204, post("/auctions/articles/1/bid?amount=600&currency=EUR", "text/plain", token).statusCode());
+        assertEquals(204, post("/auctions/articles/1/bid?amount=800&currency=EUR", "text/plain", token).statusCode());
         var details = JsonMapper.builder().build().readTree(get("/auctions/articles/1/details?currency=EUR").body());
-        assertEquals(600.0, details.get("currentPrice").asDouble());
+        assertEquals(800.0, details.get("currentPrice").asDouble());
         assertEquals(1, details.get("bids").asInt());
         assertEquals(409, post("/auctions/articles/1/bid?amount=600&currency=EUR", "text/plain", token).statusCode());
         assertEquals(204, post("/auth/logout", "text/plain", token).statusCode());
